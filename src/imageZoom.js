@@ -408,3 +408,7 @@ function getKrpanoViewParameters() {
   console.warn("failed to get parameters.");
   return null;
 }
+
+
+window.getKrpanoViewParameters = getKrpanoViewParameters;
+window.GetCurrentTranslation = GetCurrentTranslation;

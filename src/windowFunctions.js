@@ -27,3 +27,12 @@ function ToggleWindow(selector, duration = 200, ease = "linear") {
     else CloseWindow(selector, duration, ease);
   } else console.warn(`Could not find ${selector}`);
 }
+
+
+window.OpenWindow = OpenWindow;
+window.OpenWindowUI = OpenWindowUI;
+window.CloseWindow = CloseWindow;
+window.ToggleWindow = ToggleWindow;
+window.CloseWindowUI = CloseWindowUI;
+
+
