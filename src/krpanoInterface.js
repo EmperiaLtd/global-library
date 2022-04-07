@@ -2,7 +2,7 @@ function OnPanoLoad() {
     krpano = document.getElementById("krpanoSWFObject");
     currentSceneName = krpano.get('xml.scene');
     currentSceneXml = krpano.get('scene[' + currentSceneName + ']');
-    currentSceneRoom = currentSceneXml.thumburl;
+    currentSceneRoom = currentSceneXml.room;
     Analytics_OnPanoramaLoaded(currentSceneName, currentSceneRoom);
 }
 

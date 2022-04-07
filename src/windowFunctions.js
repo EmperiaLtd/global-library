@@ -1,10 +1,5 @@
-const { Analytics_SelectContent } = require("./analytics");
-
-function OpenWindow(selector, room_name = "some room", duration = 200, ease = "linear", custom_label = "") {
+function OpenWindow(selector, duration = 200, ease = "linear") {
     if (IdIsValid(selector)) {
-        Analytics_SelectContent("artwork",
-            custom_label === "" ? TryToGetTitle(selector) : custom_label,
-            room_name);
         OpenWindowUI(selector, duration, ease);
     } else console.warn(`Could not find ${selector}`);
 }

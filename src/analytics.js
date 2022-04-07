@@ -4,7 +4,7 @@ function Analytics_SelectContent(type, id, room = "undefined room") {
         'event': 'select_content',
         'content_type': type,
         'item_id': id,
-        'room': room
+        'room_name': room
     });
 }
 
@@ -33,7 +33,7 @@ function Analytics_OnPanoramaLoaded(position, room = "undefined room") {
     dataLayer.push({
         'event': 'move_to',
         'position': position,
-        'room': room
+        'room_name': room
     });
 }
 
