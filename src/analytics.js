@@ -1,12 +1,15 @@
-export function Analytics_SelectContent(type, id) {
+function Analytics_SelectContent(type, id, room = "undefined room") {
+    if (typeof dataLayer === 'undefined') return;
     dataLayer.push({
         'event': 'select_content',
         'content_type': type,
-        'item_id': id
+        'item_id': id,
+        'room': room
     });
 }
 
-export function Analytics_Share(method, content_type, item_id) {
+function Analytics_Share(method, content_type, item_id) {
+    if (typeof dataLayer === 'undefined') return;
     dataLayer.push({
         "event": "share",
         'method': method,
@@ -15,7 +18,8 @@ export function Analytics_Share(method, content_type, item_id) {
     });
 }
 
-export function Analytics_AddToCart(currency, value, item_id) {
+function Analytics_AddToCart(currency, value, item_id) {
+    if (typeof dataLayer === 'undefined') return;
     dataLayer.push({
         "event": "add_to_cart",
         'currency': currency,
@@ -24,9 +28,16 @@ export function Analytics_AddToCart(currency, value, item_id) {
     });
 }
 
-export function Analytics_MoveTo(position) {
+function Analytics_MoveTo(position, room = "undefined room") {
+    if (typeof dataLayer === 'undefined') return;
     dataLayer.push({
         'event': 'move_to',
-        'position': position
+        'position': position,
+        'room': room
     });
 }
+
+window.Analytics_SelectContent = Analytics_SelectContent;
+window.Analytics_Share = Analytics_Share;
+window.Analytics_AddToCart = Analytics_AddToCart;
+window.Analytics_MoveTo = Analytics_MoveTo;
