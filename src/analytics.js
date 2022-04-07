@@ -28,7 +28,7 @@ function Analytics_AddToCart(currency, value, item_id) {
     });
 }
 
-function Analytics_MoveTo(position, room = "undefined room") {
+function Analytics_OnPanoramaLoaded(position, room = "undefined room") {
     if (typeof dataLayer === 'undefined') return;
     dataLayer.push({
         'event': 'move_to',
@@ -40,4 +40,4 @@ function Analytics_MoveTo(position, room = "undefined room") {
 window.Analytics_SelectContent = Analytics_SelectContent;
 window.Analytics_Share = Analytics_Share;
 window.Analytics_AddToCart = Analytics_AddToCart;
-window.Analytics_MoveTo = Analytics_MoveTo;
+window.Analytics_OnPanoramaLoaded = Analytics_OnPanoramaLoaded;
