@@ -28,15 +28,32 @@ function Analytics_AddToCart(currency, value, item_id) {
     });
 }
 
-function Analytics_OnPanoramaLoaded(position, room = "undefined room") {
+function Analytics_OnPanoramaLoaded(position, room = "undefined room", room_aggregator, market, locale) {
     if (typeof dataLayer === 'undefined') return;
-    dataLayer.push({
+    const analytics_object = {
         'event': 'move_to',
         'position': position,
-        'room_name': room
-    });
+        'room_name': room,
+        'room_aggregrator': room_aggregator
+    }
+    pushToAnlaytics(analytics_object, market, locale)
 }
 
+function pushToAnlaytics(object, market, locale){
+    // picks market and locale from URL and fallback to default params set in
+    // onnewpano event in vtourskin_emperia.xml
+    const url = window.location.href;
+    const params = new URLSearchParams(url);
+    object['market'] = params.has('market') ? params.get('market') : market;
+    object['locale'] = params.has('locale') ? params.get('locale') : locale;
+
+    if (window.mixpanel != undefined) window.mixpanel.track(object.event, object);
+    if (window.emperiaTag != undefined) window.emperiaTag.pushEvent(object);
+    else {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(object);
+    }
+}
 window.Analytics_SelectContent = Analytics_SelectContent;
 window.Analytics_Share = Analytics_Share;
 window.Analytics_AddToCart = Analytics_AddToCart;
