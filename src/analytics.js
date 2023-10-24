@@ -30,6 +30,9 @@ function Analytics_AddToCart(currency, value, item_id) {
 
 function Analytics_OnPanoramaLoaded(position, room = "undefined room", room_aggregator, market, locale) {
     if (typeof dataLayer === 'undefined') return;
+    if(room_aggregator == null || room_aggregator == 'None'){
+        room_aggregator = position.split('_')[0];
+    }
     const analytics_object = {
         'event': 'move_to',
         'position': position,
@@ -46,7 +49,7 @@ function pushToAnlaytics(object, market, locale){
     const params = new URLSearchParams(url);
     object['market'] = params.has('market') ? params.get('market') : market;
     object['locale'] = params.has('locale') ? params.get('locale') : locale;
-
+    console.log("full object",object);
     if (window.mixpanel != undefined) window.mixpanel.track(object.event, Object.create(object));
     if (window.emperiaTag != undefined) window.emperiaTag.pushEvent(object);
     else {
