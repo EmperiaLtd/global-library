@@ -49,8 +49,7 @@ function pushToAnlaytics(object, market, locale){
     const params = new URLSearchParams(url);
     object['market'] = params.has('market') ? params.get('market') : market;
     object['locale'] = params.has('locale') ? params.get('locale') : locale;
-    console.log("full object",object);
-    if (window.mixpanel != undefined) window.mixpanel.track(object.event, Object.create(object));
+    if (window.mixpanel != undefined && window.mixpanel.track) window.mixpanel.track(object.event, Object.create(object));
     if (window.emperiaTag != undefined) window.emperiaTag.pushEvent(object);
     else {
         window.dataLayer = window.dataLayer || [];
