@@ -28,10 +28,29 @@ function Analytics_AddToCart(currency, value, item_id) {
     });
 }
 
+function getRoomAggregator(position){
+    room_prefix = position.split('_')[0];
+    if(room_prefix == 'lr'){
+        return 'laroca';
+    }
+    else if(room_prefix == 'lv'){
+        return 'lavallee';
+    }
+    else if(room_prefix == 'bv'){
+        return 'bicester';
+    }
+    else if(room_prefix == 'fv'){
+        return 'fidenza';
+    }
+    else{
+        return room_prefix;
+    }
+}
+
 function Analytics_OnPanoramaLoaded(position, room = "undefined room", room_aggregator, market, locale) {
     if (typeof dataLayer === 'undefined') return;
     if(room_aggregator == null || room_aggregator == 'None'){
-        room_aggregator = position.split('_')[0];
+        room_aggregator = getRoomAggregator(position);
     }
     const analytics_object = {
         'event': 'move_to',
@@ -47,8 +66,6 @@ function pushToAnlaytics(object, market, locale){
     // onnewpano event in vtourskin_emperia.xml
     const url = window.location.href;
     const params = new URLSearchParams(url);
-    object['market'] = params.has('market') ? params.get('market') : market;
-    object['locale'] = params.has('locale') ? params.get('locale') : locale;
     if (window.mixpanel != undefined && window.mixpanel.track) window.mixpanel.track(object.event, Object.create(object));
     if (window.emperiaTag != undefined) window.emperiaTag.pushEvent(object);
     else {
