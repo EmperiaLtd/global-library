@@ -66,13 +66,12 @@ function pushToAnlaytics(object, market, locale){
     // onnewpano event in vtourskin_emperia.xml
     const url = window.location.href;
     const params = new URLSearchParams(url);
-    if (window.locale) {
-        object.market = window.locale.split('-')[1];
-        object.locale = window.locale.split('-')[0];
+    if (localStorage.getItem('locale')) {
+        object.locale = localStorage.getItem('locale');
     } else {
-        object['market'] = params.has('market') ? params.get('market') : market;
-        object['locale'] = params.has('locale') ? params.get('locale') : locale;
+    object.locale = params.has('locale') ? params.get('locale') : locale;
     }
+    object.market = params.has('market') ? params.get('market') : market;
     if (window.mixpanel != undefined && window.mixpanel.track) window.mixpanel.track(object.event, Object.create(object));
     if (window.emperiaTag != undefined) window.emperiaTag.pushEvent(object);
     else {
